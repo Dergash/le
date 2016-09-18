@@ -6,7 +6,7 @@ namespace LE
     {
         public static void Main(string[] args)
         {
-            
+            Console.WriteLine("XZAR");
         }
     }
 }
