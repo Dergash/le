@@ -1,15 +1,22 @@
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LE {
     public abstract class LegacyCreatureReader : ILegacyReader<Creature> {
-        const uint signatureOffset = 0x00000000;
-        const uint signatureSize = 4;
-        const string signature = "CRE ";
+        public IEnumerable<LegacyField> fields { get; set; }
         public abstract Creature readFromLegacy(byte[] binary);
         protected Boolean isSignatureValid(byte[] binary) {
-            string signature = Utils.readCharArray(binary, signatureOffset, signatureSize);
-            return signature == LegacyCreatureReader.signature;
+            string signature = Utils.readLegacyFieldAsString("Signature", binary, fields);
+            return signature == LegacyFields.CreatureSignature;
+        }
+        
+        protected Gender getGender(byte[] binary) {
+            uint offset = this.fields.First(field => field.name == "Gender").offset;
+            if(binary != null && offset <= binary.Length) {    
+                return (Gender)binary[offset];
+            }
+            return Gender.UNKNOWN;
         }
     }
 }
