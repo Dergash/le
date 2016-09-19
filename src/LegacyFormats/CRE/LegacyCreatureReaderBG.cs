@@ -14,6 +14,12 @@ namespace LE {
             }
             var creature = new Creature();
             creature.Gender = base.getGender(binary);
+            creature.Strength = base.getStrength(binary);
+            creature.Dexterity = base.getDexterity(binary);
+            creature.Constitution = base.getConstitution(binary);
+            creature.Intelligence = base.getIntelligence(binary);
+            creature.Wisdom = base.getWisdom(binary);
+            creature.Charisma = base.getCharisma(binary);
             return creature;
         }
     }
