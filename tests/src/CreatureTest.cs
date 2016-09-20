@@ -11,6 +11,7 @@ namespace LETest {
         Creature IdealDrizzt = new Creature {
             Name = "Drizzt Do'Urden",
             ShortName = "Drizzt",
+            Alignment = Alignment.ChaoticGood,
             Strength = 13,
             Dexterity = 20,
             Constitution = 15,
@@ -40,7 +41,22 @@ namespace LETest {
                 Console.WriteLine("----Abilities Reading: " + ((abilitiesReading) ? "SUCCES" : "FAIL"));
             }
 
+            var alignmentReading = testAlignmentReading();
+            result &= alignmentReading;
+            if(this.Verbose == Verbose.METHODS) {   
+                Console.WriteLine("----Alignment Reading: " + ((alignmentReading) ? "SUCCES" : "FAIL"));
+            }
+
             return result;
+        }
+
+        public bool testAlignmentReading() {
+            var goodBinary = File.ReadAllBytes(sampleMale);
+            var evilBinary = File.ReadAllBytes(sampleFemale);
+            var creatureFactory = new CreatureFactory();
+            Creature Drizzt = creatureFactory.importFromLegacy(goodBinary);
+            Creature Viconia = creatureFactory.importFromLegacy(evilBinary);
+            return (Drizzt.Alignment == Alignment.ChaoticGood && Viconia.Alignment == Alignment.NeutralEvil);
         }
 
         public bool testGenderReading() {

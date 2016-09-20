@@ -14,6 +14,7 @@ namespace LE {
             }
             var creature = new Creature();
             creature.Gender = base.getGender(binary);
+            creature.Alignment = base.getAlignment(binary);
             creature.Strength = base.getStrength(binary);
             creature.Dexterity = base.getDexterity(binary);
             creature.Constitution = base.getConstitution(binary);

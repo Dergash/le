@@ -10,7 +10,25 @@ namespace LE {
             string signature = Utils.readLegacyFieldAsString("Signature", binary, fields);
             return signature == LegacyFields.CreatureSignature;
         }
-        
+        protected Alignment getAlignment(byte[] binary) {
+            uint offset = this.fields.First(field => field.name == "Alignment").offset;
+            if(binary != null && offset <= binary.Length) {   
+                switch(binary[offset]) {
+                    case 0x00: return Alignment.Neutral;
+                    case 0x11: return Alignment.LawfulGood;
+                    case 0x12: return Alignment.LawfulNeutral;
+                    case 0x13: return Alignment.LawfulEvil;
+                    case 0x21: return Alignment.NeutralGood;
+                    case 0x22: return Alignment.TrueNeutral;
+                    case 0x23: return Alignment.NeutralEvil;
+                    case 0x31: return Alignment.ChaoticGood;
+                    case 0x32: return Alignment.ChaoticNeutral;
+                    case 0x33: return Alignment.ChaoticEvil;
+                    default: return Alignment.Neutral;
+                } 
+            }
+            return Alignment.Neutral;
+        }
         protected Gender getGender(byte[] binary) {
             uint offset = this.fields.First(field => field.name == "Gender").offset;
             if(binary != null && offset <= binary.Length) {    

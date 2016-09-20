@@ -4,6 +4,7 @@ namespace LE {
     public class Creature : GameObject {
         public String Name;
         public String ShortName;
+        public Alignment Alignment;
         public Gender Gender;
         public Strength Strength;
         public Dexterity Dexterity;
