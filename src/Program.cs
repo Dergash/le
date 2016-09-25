@@ -10,6 +10,9 @@ namespace LE
     {
         public static void Main(string[] args) {
             runTests(Verbose.METHODS);
+            using(Game game = new Game()) {
+                game.Run(30.0);
+            }
         }
 
         public static void runTests(Verbose verbose) {
