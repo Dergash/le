@@ -5,7 +5,8 @@
     "emitEntryPoint": true
   },
   "dependencies": {
-    "OpenTK.NETCore": "*"
+    "OpenTK.NETCore": "*",
+    "ImageProcessorCore": "1.0.0-alpha1058"
   },
   "frameworks": {
     "netcoreapp1.0": {
