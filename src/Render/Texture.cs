@@ -37,7 +37,7 @@ namespace LE {
             int id = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, id);
     
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, (int)Height, (int)Width,
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, (int)Width, (int)Height,
                 0, PixelFormat.Bgr, PixelType.UnsignedByte, Pixels);
 
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
