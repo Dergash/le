@@ -21,6 +21,7 @@ namespace LE {
             creature.Intelligence = base.getIntelligence(binary);
             creature.Wisdom = base.getWisdom(binary);
             creature.Charisma = base.getCharisma(binary);
+            creature.Fallen = base.getFallenStatus(binary);
             return creature;
         }
     }

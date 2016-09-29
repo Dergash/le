@@ -14,5 +14,6 @@ namespace LE {
         public Charisma Charisma;
         public Int16 BaseTHAC0;
         public Int16 NaturalAC;
+        public Boolean Fallen;
     }
 }

@@ -7,6 +7,7 @@ namespace LETest {
     public class CreatureTest : ITest {
         const String sampleMale = @"samples/DRIZZT.cre";
         const String sampleFemale = @"samples/VICONI.cre";
+        const String fallenRanger = @"samples/FALLEN_DRIZZT.cre";
 
         Creature IdealDrizzt = new Creature {
             Name = "Drizzt Do'Urden",
@@ -47,6 +48,12 @@ namespace LETest {
                 Console.WriteLine("----Alignment Reading: " + ((alignmentReading) ? "SUCCES" : "FAIL"));
             }
 
+            var fallenReading = testFallenReading();
+            result &= fallenReading;
+            if(this.Verbose == Verbose.METHODS) {   
+                Console.WriteLine("----Fallen Reading: " + ((fallenReading) ? "SUCCES" : "FAIL"));
+            }
+            
             return result;
         }
 
@@ -78,6 +85,13 @@ namespace LETest {
                 && Drizzt.Intelligence == IdealDrizzt.Intelligence
                 && Drizzt.Wisdom == IdealDrizzt.Wisdom
                 && Drizzt.Charisma == IdealDrizzt.Charisma;
+        }
+
+        public bool testFallenReading() {
+            var sample = File.ReadAllBytes(fallenRanger);
+            var creatureFactory = new CreatureFactory();
+            Creature Drizzt = creatureFactory.importFromLegacy(sample);
+            return Drizzt.Fallen == true;
         }
 
         public override String ToString() {

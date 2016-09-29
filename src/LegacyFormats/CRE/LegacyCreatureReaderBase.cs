@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -77,6 +78,16 @@ namespace LE {
                 return new Charisma(binary[offset]);
             }
             return new Charisma(0);
+        }
+        protected Boolean getFallenStatus(byte[] binary) {
+            uint offset = this.fields.First(field => field.name == "CreatureFlags").offset;
+            if(binary != null && offset <= binary.Length) {
+                byte[] field = Utils.readByteArray(binary, offset, 4);    
+                var creatureFlags = new BitArray(field);
+                return creatureFlags[(int)LegacyCreatureFlags.FallenRanger]
+                    || creatureFlags[(int)LegacyCreatureFlags.FallenPaladin];
+            }
+            return false;
         }
     }
 }
