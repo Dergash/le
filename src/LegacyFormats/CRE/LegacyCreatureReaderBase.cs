@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace LE {
-    public abstract class LegacyCreatureReader : ILegacyReader<Creature> {
+    public abstract class LegacyCreatureReaderBase : ILegacyReader<Creature> {
         public IEnumerable<LegacyField> fields { get; set; }
         public abstract Creature readFromLegacy(byte[] binary);
         protected Boolean isSignatureValid(byte[] binary) {

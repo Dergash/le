@@ -1,8 +1,10 @@
 using System; 
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LE {
-    public class LegacyCreatureReaderBG : LegacyCreatureReader {
+    public class LegacyCreatureReaderBG : LegacyCreatureReaderBase {
 
         public LegacyCreatureReaderBG() {
             base.fields = LegacyFields.CreatureV1_0;
@@ -22,7 +24,24 @@ namespace LE {
             creature.Wisdom = base.getWisdom(binary);
             creature.Charisma = base.getCharisma(binary);
             creature.Fallen = base.getFallenStatus(binary);
+            creature.Race = getRace(binary);
             return creature;
+        }
+
+        public Race getRace(byte[] binary) {
+            uint offset = this.fields.First(field => field.name == "Race").offset;
+            if(binary != null && offset <= binary.Length) {
+                switch((LegacyRace)binary[offset]) {
+                    case LegacyRace.HUMAN: return Race.Human;
+                    case LegacyRace.ELF: return Race.Elf;
+                    case LegacyRace.DWARF: return Race.Dwarf;
+                    case LegacyRace.GNOME: return Race.Gnome;
+                    case LegacyRace.HALF_ELF: return Race.HalfElf;
+                    case LegacyRace.HALFLING: return Race.Halfling;
+                    default: return Race.Monster;
+                }
+            }
+            return Race.Monster;
         }
     }
 }

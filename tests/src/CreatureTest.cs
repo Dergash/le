@@ -53,6 +53,12 @@ namespace LETest {
             if(this.Verbose == Verbose.METHODS) {   
                 Console.WriteLine("----Fallen Reading: " + ((fallenReading) ? "SUCCES" : "FAIL"));
             }
+
+            var raceReading = testRaceReading();
+            result &= raceReading;
+            if(this.Verbose == Verbose.METHODS) {   
+                Console.WriteLine("----Race Reading: " + ((raceReading) ? "SUCCES" : "FAIL"));
+            }
             
             return result;
         }
@@ -92,6 +98,13 @@ namespace LETest {
             var creatureFactory = new CreatureFactory();
             Creature Drizzt = creatureFactory.importFromLegacy(sample);
             return Drizzt.Fallen == true;
+        }
+
+        public bool testRaceReading() {
+            var sampleCre = File.ReadAllBytes(sampleMale);
+            var creatureFactory = new CreatureFactory();
+            Creature Drizzt = creatureFactory.importFromLegacy(sampleCre);
+            return Drizzt.Race == Race.Elf;
         }
 
         public override String ToString() {

@@ -6,6 +6,7 @@ namespace LE {
         public String ShortName;
         public Alignment Alignment;
         public Gender Gender;
+        public Race Race;
         public Strength Strength;
         public Dexterity Dexterity;
         public Constitution Constitution;

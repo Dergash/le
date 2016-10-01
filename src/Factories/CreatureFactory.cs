@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 
 namespace LE {
     public class CreatureFactory: ILegacyFactory<Creature> {
