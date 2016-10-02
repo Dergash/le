@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace LE {
     public class Creature : GameObject {
@@ -7,6 +8,8 @@ namespace LE {
         public Alignment Alignment;
         public Gender Gender;
         public Race Race;
+        public List<Class> Class;
+        public Kit Kit;
         public Strength Strength;
         public Dexterity Dexterity;
         public Constitution Constitution;

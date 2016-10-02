@@ -8,6 +8,7 @@ namespace LETest {
         const String sampleMale = @"samples/DRIZZT.cre";
         const String sampleFemale = @"samples/VICONI.cre";
         const String fallenRanger = @"samples/FALLEN_DRIZZT.cre";
+        const String necromancer = @"samples/XZAR.cre";
 
         Creature IdealDrizzt = new Creature {
             Name = "Drizzt Do'Urden",
@@ -59,6 +60,12 @@ namespace LETest {
             if(this.Verbose == Verbose.METHODS) {   
                 Console.WriteLine("----Race Reading: " + ((raceReading) ? "SUCCES" : "FAIL"));
             }
+
+            var classReading = testClassReading();
+            result &= classReading;
+            if(this.Verbose == Verbose.METHODS) {   
+                Console.WriteLine("----Class Reading: " + ((classReading) ? "SUCCES" : "FAIL"));
+            }
             
             return result;
         }
@@ -105,6 +112,16 @@ namespace LETest {
             var creatureFactory = new CreatureFactory();
             Creature Drizzt = creatureFactory.importFromLegacy(sampleCre);
             return Drizzt.Race == Race.Elf;
+        }
+
+        public bool testClassReading() {
+            var sampleCre = File.ReadAllBytes(necromancer);
+            var creatureFactory = new CreatureFactory();
+            Creature Xzar = creatureFactory.importFromLegacy(sampleCre);
+            return Xzar.Class != null
+                && Xzar.Class.Count == 1
+                && Xzar.Class[0] == Class.Mage
+                && Xzar.Kit == Kit.Necromancer;
         }
 
         public override String ToString() {
