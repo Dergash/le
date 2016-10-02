@@ -5,10 +5,10 @@ using LE;
 namespace LETest {
 
     public class CreatureTest : ITest {
-        const String sampleMale = @"samples/DRIZZT.cre";
-        const String sampleFemale = @"samples/VICONI.cre";
-        const String fallenRanger = @"samples/FALLEN_DRIZZT.cre";
-        const String necromancer = @"samples/XZAR.cre";
+        const String sampleMale = @"tests/samples/DRIZZT.cre";
+        const String sampleFemale = @"tests/samples/VICONI.cre";
+        const String fallenRanger = @"tests/samples/FALLEN_DRIZZT.cre";
+        const String necromancer = @"tests/samples/XZAR.cre";
 
         Creature IdealDrizzt = new Creature {
             Name = "Drizzt Do'Urden",

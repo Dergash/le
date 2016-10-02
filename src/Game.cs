@@ -24,7 +24,7 @@ namespace LE {
         }
         protected override void OnLoad(EventArgs e) {
             GL.Enable(EnableCap.Texture2D);
-            var texture = new Texture("samples/forest.png");
+            var texture = new Texture("assets/forest.png");
             if(texture.Id != -1) {    
                 this.backgroundTextureId = texture.Id;
             }
