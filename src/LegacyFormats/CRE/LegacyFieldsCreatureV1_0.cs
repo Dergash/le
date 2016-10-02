@@ -1,4 +1,5 @@
 /* Thanks to http://gibberlings3.net/iesdp/file_formats/ie_formats/cre_v1.htm */
+
 using System;
 using System.Collections.Generic;
 

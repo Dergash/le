@@ -1,3 +1,5 @@
+/* Thanks to http://gibberlings3.net/iesdp/files/ids/bg1/race.htm */
+
 namespace LE {
     public enum LegacyRace {
         HUMAN = 1,

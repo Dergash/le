@@ -1,3 +1,5 @@
+/* Thanks to http://gibberlings3.net/iesdp/files/ids/bg1/class.htm */
+
 namespace LE {
     public enum LegacyCreatureFlags {
         ShowLongname = 0,
