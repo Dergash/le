@@ -3,13 +3,11 @@ using System.IO;
 using LE;
 
 namespace LETest {
-
-    public class CreatureTest : ITest {
+    public class CreatureImportTest : ITest {
         const String sampleMale = @"tests/samples/DRIZZT.cre";
         const String sampleFemale = @"tests/samples/VICONI.cre";
         const String fallenRanger = @"tests/samples/FALLEN_DRIZZT.cre";
         const String necromancer = @"tests/samples/XZAR.cre";
-
         Creature IdealDrizzt = new Creature {
             Name = "Drizzt Do'Urden",
             ShortName = "Drizzt",
@@ -24,7 +22,7 @@ namespace LETest {
 
         public Verbose Verbose {get; set;}
 
-        public CreatureTest() {
+        public CreatureImportTest() {
             this.Verbose = Verbose.METHODS;
         }
 

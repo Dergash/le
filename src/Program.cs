@@ -18,7 +18,8 @@ namespace LE
         public static void runTests(Verbose verbose) {
             bool result = true;
             var tests = new List<ITest> {
-                new CreatureTest()
+                new CreatureImportTest(),
+                new CharacterImportTest()
             };
             tests.ForEach(test => {
                 var classResult = test.testAll();
