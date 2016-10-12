@@ -79,6 +79,13 @@ namespace LE {
             }
             return new Charisma(0);
         }
+        protected int getLuck(byte[] binary) {
+            uint offset = this.fields.First(field => field.name == "Luck").offset;
+            if(binary != null && offset <= binary.Length) {
+                return (int)binary[offset];
+            }
+            return 0;
+        }
         protected Boolean getFallenStatus(byte[] binary) {
             uint offset = this.fields.First(field => field.name == "CreatureFlags").offset;
             if(binary != null && offset <= binary.Length) {

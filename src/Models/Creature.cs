@@ -16,6 +16,7 @@ namespace LE {
         public Wisdom Wisdom;
         public Intelligence Intelligence;
         public Charisma Charisma;
+        public int Luck;
         public Int16 BaseTHAC0;
         public Int16 NaturalAC;
         public Boolean Fallen;
