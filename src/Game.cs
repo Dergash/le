@@ -23,6 +23,10 @@ namespace LE {
             this.SwapBuffers();
         }
         protected override void OnLoad(EventArgs e) {
+            
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.Ortho(0, Width, 0, Height, 0, 1);     
+
             GL.Enable(EnableCap.Texture2D);
             var texture = new Texture("assets/forest.png");
             if(texture.Id != -1) {    
@@ -47,10 +51,10 @@ namespace LE {
             GL.BindTexture(TextureTarget.Texture2D, this.backgroundTextureId.Value);
             GL.Begin(PrimitiveType.Quads);
 
-            GL.TexCoord2(0, 0);  GL.Vertex2(-1, 1);
-            GL.TexCoord2(1, 0);  GL.Vertex2(1, 1);
-            GL.TexCoord2(1, 1);  GL.Vertex2(1, -1);
-            GL.TexCoord2(0, 1);  GL.Vertex2(-1, -1);
+            GL.TexCoord2(0, 0); GL.Vertex2(0, 600);
+            GL.TexCoord2(1, 0); GL.Vertex2(800, 600);
+            GL.TexCoord2(1, 1); GL.Vertex2(800, 0);
+            GL.TexCoord2(0, 1); GL.Vertex2(0,0);
 
             GL.End();
         }
