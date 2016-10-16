@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using NUnit.Framework;
+
 using LE;
 
 namespace LETest {
-    public class CharacterImportTest : ITest {
+
+    [TestFixture]
+    public class CharacterImportTest {
         const string sampleBronn = @"tests/samples/BRONN.CHR";
         Creature Bronn = new Creature {
             Gender = Gender.MALE,
@@ -17,24 +21,12 @@ namespace LETest {
             Wisdom = 14,
             Charisma = 13
         };
-        public Verbose Verbose {get; set;}
-        public CharacterImportTest() {
-            this.Verbose = Verbose.METHODS;
-        }
-        public bool testAll() {
-            var result = true;
-            var bg1CharacterImport = testBG1CharacterImport();
-            result &= bg1CharacterImport;
-            if(this.Verbose == Verbose.METHODS) {   
-                Console.WriteLine("----BG1 Character Reading: " + ((bg1CharacterImport) ? "SUCCES" : "FAIL"));
-            }
-            return result;
-        }
 
-        bool testBG1CharacterImport() {
+        [Test]
+        public void testBG1CharacterImport() {
             LegacyCharacter bronn = new LegacyCharacter(sampleBronn);
             var bg1Bronn = bronn.getCreature();
-            return (bg1Bronn.Gender == Bronn.Gender
+            Assert.That(bg1Bronn.Gender == Bronn.Gender
                 && bg1Bronn.Race == Bronn.Race
                 && (bg1Bronn.Class != null
                     && bg1Bronn.Class.Count == 1

@@ -6,8 +6,11 @@
   },
   "dependencies": {
     "OpenTK.NETCore": "*",
-    "ImageProcessorCore": "1.0.0-alpha1058"
+    "ImageProcessorCore": "1.0.0-alpha1058",
+    "NUnit": "3.5.0",
+    "dotnet-test-nunit": "3.4.0-beta-2"
   },
+  "testRunner": "nunit",
   "frameworks": {
     "netcoreapp1.0": {
       "dependencies": {
