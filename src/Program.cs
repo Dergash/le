@@ -1,15 +1,35 @@
 ﻿using System;
+using System.Reflection;
 using System.Linq;
-using System.Collections.Generic;
+
+/** TODO : Remove when Issue #1 closed 
+ * 
+ * As for the moment 'dotnet test' command does not work so well with debugging
+ * NUnit tests code, we stick with NUnitLite for the moment. This includes dependency,
+ * two additional using, runTests method and separate VSCode launch task.
+ * See details: https://github.com/nunit/dotnet-test-nunit/issues/73 
+ */
+using NUnit.Common;
+using NUnitLite;
 
 namespace LE
 {
     public class Program
     {
         public static void Main(string[] args) {
+
+            if (args.Contains("-debug")) {
+                runTests();
+            }
+
             using(Game game = new Game()) {
                 game.Run(30.0);
             }
+        }
+
+        private static void runTests() {
+            var writer = new ExtendedTextWrapper(Console.Out);
+            new AutoRun(typeof(Program).GetTypeInfo().Assembly).Execute(new String[] {}, writer, Console.In);
         }
     }
 }
