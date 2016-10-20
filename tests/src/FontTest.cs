@@ -22,9 +22,17 @@ namespace LETest {
         }
 
         [Test]
-        public void getFontTest() {
-            var font = new Font(pathToFont).getFont();
+        public void getFaceTest() {
+            var font = new Font(pathToFont).getFace();
             Assert.IsNotNull(font);
+        }
+
+        [Test]
+        public void getLetterBitmapTest() {
+             var font = new Font(pathToFont);
+             Assert.Throws(typeof(NotImplementedException), () => {
+                 var bitmap = font.getLetterBitmap('a', 8);
+             });
         }
     }
 }
