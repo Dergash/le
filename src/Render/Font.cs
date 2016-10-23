@@ -1,6 +1,7 @@
 using System;
-using SharpFont;
+using System.Runtime.InteropServices;
 
+using SharpFont;
 using ImageProcessorCore;
 
 namespace LE {
@@ -22,35 +23,28 @@ namespace LE {
             return result;
         }
 
-        Bitmap getBitmapFromFTBitmap(FTBitmap FTBitmap) {
-            throw new NotImplementedException();
-            // SharpFont provides ToGdipBitmap for converting to GDI+ bitmap
-            // which we should replace by our conversion to ImageProcessor.Image;
-            // We also can skip ImageProcessor and convert directly to a Texture
+        Bitmap getBitmapFromFTBitmap(FTBitmap FTBitmap) {   
+            if (FTBitmap.PixelMode != PixelMode.Mono) {
+                throw new NotImplementedException();
+            }
+            uint targetTextureSize = (uint)(FTBitmap.Rows * FTBitmap.Width);
+            byte[] targetTextureBytes = new byte[targetTextureSize];
 
-            // Conversion sample from SharpFont src:
+            // Based on Dan Bader's python example
+            for (uint sourceRowsIndex = 0; sourceRowsIndex < FTBitmap.Rows; sourceRowsIndex++) {
+                for (uint sourcePitchIndex = 0; sourcePitchIndex < FTBitmap.Pitch; sourcePitchIndex++) {
+                    byte sourceByte = FTBitmap.BufferData[sourceRowsIndex * FTBitmap.Pitch + sourcePitchIndex];
+                    int bitsDone = (int)sourcePitchIndex * 8;
+                    int rowStart = (int)sourceRowsIndex * (int)FTBitmap.Width + (int)sourcePitchIndex * 8;
+                    int limit = ((int)FTBitmap.Width - bitsDone) < 8 ? FTBitmap.Width - bitsDone : 8;
+                    for (uint bitIndex = 0; bitIndex < limit; bitIndex++) {
+                        bool bit = Convert.ToBoolean(sourceByte & (1 << (7 - (int)bitIndex)));
+                        targetTextureBytes[rowStart + bitIndex] = (bit) ? (byte)0xFF : (byte)0x00;
+                    }
+                }
+            }
 
-            /*
-            case PixelMode.Mono:
-				{
-					Bitmap bmp = new Bitmap(rec.width, rec.rows, PixelFormat.Format1bppIndexed);
-					var locked = bmp.LockBits(new Rectangle(0, 0, rec.width, rec.rows), ImageLockMode.ReadWrite, PixelFormat.Format1bppIndexed);
-
-					for (int i = 0; i < rec.rows; i++)
-						PInvokeHelper.Copy(Buffer, i * rec.pitch, locked.Scan0, i * locked.Stride, locked.Stride);
-
-					bmp.UnlockBits(locked);
-
-					ColorPalette palette = bmp.Palette;
-					palette.Entries[0] = Color.FromArgb(0, color);
-					palette.Entries[1] = Color.FromArgb(255, color);
-
-					bmp.Palette = palette;
-					return bmp;
-				}
-            */
-
-            // So we probably should use width, rows and Marshal.Copy to get our pixels info
+            return new Bitmap(BitmapFormat.Monochrome, (uint)FTBitmap.Width, (uint)FTBitmap.Rows, targetTextureBytes);
         }
     }
 }

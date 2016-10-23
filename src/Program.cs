@@ -16,13 +16,14 @@ namespace LE
 {
     public class Program
     {
+        const String pathToFont = "assets/fonts/Now-Regular.otf";
         public static void Main(string[] args) {
 
             if (args.Contains("-debug")) {
                 runTests();
             }
 
-            using(Game game = new Game()) {
+            using(Game game = new Game(GameContext.getInstance())) {
                 game.Run(30.0);
             }
         }

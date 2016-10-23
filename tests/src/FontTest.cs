@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using OpenTK;
+using OpenTK.Graphics.OpenGL;
 
 using LE;
 
@@ -30,9 +32,8 @@ namespace LETest {
         [Test]
         public void getLetterBitmapTest() {
              var font = new Font(pathToFont);
-             Assert.Throws(typeof(NotImplementedException), () => {
-                 var bitmap = font.getLetterBitmap('a', 8);
-             });
+             var bitmap = font.getLetterBitmap('d', 6);
+             Assert.NotNull(bitmap);
         }
     }
 }

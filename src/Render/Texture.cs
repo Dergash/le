@@ -30,13 +30,26 @@ namespace LE {
 
             byte[] pixels = getBGRFromImage(image);
 
-            this.Id = getSquareTexture(pixels, Width, Height);
-        }        
+            this.Id = getTexture(pixels, Width, Height);
+        }
+        
+        public Texture(Bitmap bitmap) {
+            this.Width = bitmap.Width;
+            this.Height = bitmap.Height;
+            if (bitmap.Format != BitmapFormat.BGR) {
+                var bgrBitmap = Bitmap.Convert(bitmap, BitmapFormat.BGR);
+                this.Id = getTexture(bgrBitmap.Bytes, bgrBitmap.Width, bgrBitmap.Height);
+            } else {
+                this.Id = getTexture(bitmap.Bytes, bitmap.Width, bitmap.Height);
+            }
+        }
 
-        int getSquareTexture(byte[] Pixels, uint Width, uint Height) {
+        int getTexture(byte[] Pixels, uint Width, uint Height) {
             int id = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, id);
-    
+
+            GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
+
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, (int)Width, (int)Height,
                 0, PixelFormat.Bgr, PixelType.UnsignedByte, Pixels);
 
@@ -62,5 +75,6 @@ namespace LE {
             }
             return pixels;
         }
+
     }
 }
