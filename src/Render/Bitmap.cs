@@ -3,7 +3,7 @@ using System;
 namespace LE {
     public enum BitmapFormat {
         Monochrome,
-        BGR
+        BGRA
     }
     public struct Bitmap {
         public BitmapFormat Format;
@@ -23,24 +23,30 @@ namespace LE {
             if (source.Format == newFormat) {
                 return source;
             }
-            if (newFormat == BitmapFormat.BGR) {
-                return convertToBGR(source);
+            if (newFormat == BitmapFormat.BGRA) {
+                return convertMonochromeToBGRA(source);
             }
             throw new NotImplementedException();
         }
 
-        static Bitmap convertToBGR(Bitmap source) {
+        public static Bitmap convertMonochromeToBGRA(Bitmap source) {
+            return convertMonochromeToBGRA(source, OpenTK.Color.White);
+        }
+
+        public static Bitmap convertMonochromeToBGRA(Bitmap source, OpenTK.Color color) {
             if (source.Format == BitmapFormat.Monochrome) {
-                byte[] target = new byte[source.Bytes.Length * 3];
-                for (uint sourceIndex = 0, targetIndex = 0;
-                    sourceIndex < source.Bytes.Length;
-                    sourceIndex++, targetIndex += 3) {
-                    byte value = (source.Bytes[sourceIndex] == (byte)0x00) ? (byte)0xFF : (byte)0x00;
-                    target[targetIndex] = value;
-                    target[targetIndex + 1] = value;
-                    target[targetIndex + 2] = value;
+                byte[] target = new byte[source.Bytes.Length * 4];
+                for (uint srcIndex = 0, targetIndex = 0; srcIndex < source.Bytes.Length; srcIndex++, targetIndex += 4) {
+                    if (source.Bytes[srcIndex] == (byte)0x00) { // Letter background
+                         target[targetIndex + 3] = (byte)0x00;
+                    } else { // Letter
+                        target[targetIndex] = color.B;
+                        target[targetIndex + 1] = color.G;
+                        target[targetIndex + 2] = color.R;
+                        target[targetIndex + 3] = color.A;
+                    }
                 }
-                return new Bitmap(BitmapFormat.BGR, source.Width, source.Height, target);
+                return new Bitmap(BitmapFormat.BGRA, source.Width, source.Height, target);
             }
             throw new NotImplementedException();
         }

@@ -17,10 +17,12 @@ namespace LE {
         protected override void OnResize(EventArgs e)
         {
             GL.Viewport(0, 0, this.Width, this.Height);
+
             renderEmptyBackground();
             if(this.backgroundTextureId.HasValue) {
                 renderBackground();
             }
+            renderLetter();
             this.SwapBuffers();
         }
         protected override void OnLoad(EventArgs e) {
@@ -29,6 +31,8 @@ namespace LE {
             GL.Ortho(0, Width, 0, Height, 0, 1);     
 
             GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             var texture = new Texture("assets/forest.png");
             if(texture.Id != -1) {    
                 this.backgroundTextureId = texture.Id;
@@ -38,9 +42,9 @@ namespace LE {
         protected override void OnRenderFrame(FrameEventArgs e) {
             renderEmptyBackground();
             if(this.backgroundTextureId.HasValue) {
-               renderBackground();
-               renderLetter();
+                renderBackground();
             }
+            renderLetter();
             this.SwapBuffers();
         }
 
@@ -63,11 +67,11 @@ namespace LE {
         Texture getLetterTexture() {
             var font = context.getFont();
             if (font != null) {
-                var letter = context.getFont().getLetterBitmap('B', 48);
+                context.getFont().Color = Color.HotPink;
+                var letter = context.getFont().Atlas['B'];
                 return new Texture(letter);
             }
             return null;
-
         }
         void renderLetter() {
             var texture = this.letterTexture;
@@ -76,10 +80,10 @@ namespace LE {
             }
             GL.BindTexture(TextureTarget.Texture2D, texture.Id);
             GL.Begin(PrimitiveType.Quads);
-                GL.TexCoord2(0, 0); GL.Vertex2(0, texture.Height);
-                GL.TexCoord2(1, 0); GL.Vertex2(texture.Width, texture.Height);
-                GL.TexCoord2(1, 1); GL.Vertex2(texture.Width, 0);
-                GL.TexCoord2(0, 1); GL.Vertex2(0,0);
+                GL.TexCoord2(0, 0); GL.Vertex2(0, Height);
+                GL.TexCoord2(1, 0); GL.Vertex2(texture.Width, Height);
+                GL.TexCoord2(1, 1); GL.Vertex2(texture.Width, (int)Height - (int)texture.Height);
+                GL.TexCoord2(0, 1); GL.Vertex2(0, (int)Height - (int)texture.Height);
             GL.End();
         }
     }

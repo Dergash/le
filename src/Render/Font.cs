@@ -1,21 +1,52 @@
 using System;
-using System.Runtime.InteropServices;
 
+using OpenTK;
 using SharpFont;
 using ImageProcessorCore;
 
 namespace LE {
     public class Font {
         Face face;
+        private OpenTK.Color color;
+        public OpenTK.Color Color {
+            get {
+                return color;
+            }
+            set {
+                this.Atlas = changeAtlasColor(this.Atlas, value);
+            }
+        }
+        public Bitmap[] Atlas;
         public Font(String pathToFont) {
+            this.color = new OpenTK.Color(255, 255, 255, 255);
             Library library = new Library();
             this.face = new Face(library, pathToFont);
         }
-        public Face getFace() {
+        Face getFace() {
             return this.face;
         }
 
-        public Bitmap getLetterBitmap(char letter, uint size) {
+        public void initAtlas(uint size) {
+            var atlas = new Bitmap[255];
+            for (char asciiCode = (char)0; asciiCode < 255; asciiCode++) {
+                atlas[asciiCode] = getLetterBitmap(asciiCode, size);
+            }
+            this.Atlas = atlas;
+        }
+
+        public Bitmap[] changeAtlasColor(Bitmap[] sourceAtlas, OpenTK.Color color) {
+            var atlasWithNewColor = new Bitmap[sourceAtlas.Length];
+            for (uint letterIndex = 0; letterIndex < sourceAtlas.Length; letterIndex++) {
+                if (sourceAtlas[letterIndex].Format == BitmapFormat.Monochrome) {
+                    atlasWithNewColor[letterIndex] = colorizeMonochromeLetter(color, sourceAtlas[letterIndex]);
+                } else {
+                    throw new NotImplementedException();
+                }
+            }
+            return atlasWithNewColor;
+        }
+
+        Bitmap getLetterBitmap(char letter, uint size) {
             this.face.SetCharSize(0, (float)size, 0, 96);
             uint glyphIndex = this.face.GetCharIndex(letter);
             this.face.LoadGlyph(glyphIndex, SharpFont.LoadFlags.Render, SharpFont.LoadTarget.Mono);
@@ -43,8 +74,11 @@ namespace LE {
                     }
                 }
             }
-
             return new Bitmap(BitmapFormat.Monochrome, (uint)FTBitmap.Width, (uint)FTBitmap.Rows, targetTextureBytes);
+        }
+
+        Bitmap colorizeMonochromeLetter(OpenTK.Color color, Bitmap letter) {
+            return Bitmap.convertMonochromeToBGRA(letter, color);
         }
     }
 }

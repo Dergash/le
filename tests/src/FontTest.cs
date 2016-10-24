@@ -24,16 +24,19 @@ namespace LETest {
         }
 
         [Test]
-        public void getFaceTest() {
-            var font = new Font(pathToFont).getFace();
-            Assert.IsNotNull(font);
+        public void readFontFile() {
+            var font = new Font(pathToFont);
+            Assert.NotNull(font);
         }
 
         [Test]
-        public void getLetterBitmapTest() {
-             var font = new Font(pathToFont);
-             var bitmap = font.getLetterBitmap('d', 6);
-             Assert.NotNull(bitmap);
+        public void initAtlas() {
+            var font = new Font(pathToFont);
+            font.initAtlas(48);
+            Assert.That(font != null && font.Atlas.Length == 255);
         }
+
+        
+
     }
 }
