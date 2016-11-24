@@ -17,7 +17,15 @@ namespace LE {
             foreach (var shader in Shaders) {
                 GL.AttachShader(this.Id, shader.Id);
             }
+            
             GL.LinkProgram(this.Id);
+            int statusCode;
+            string statusText;
+            GL.GetProgram(this.Id,  GetProgramParameterName.LinkStatus, out statusCode);
+            if (statusCode != 1) {
+                statusText = GL.GetProgramInfoLog(this.Id);
+                throw new ApplicationException(statusText);
+            }
         }
     }
 }

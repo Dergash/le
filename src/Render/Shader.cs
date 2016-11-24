@@ -12,13 +12,12 @@ namespace LE {
             }
         }
 
-        public Shader(String srcFilePath) {
-            //String sourcePath = @"src/Render/Shaders/VertexShader.glsl";
+        public Shader(String srcFilePath, ShaderType ShaderType) {
             int shaderId;
             using (var stream = new FileStream(srcFilePath, FileMode.Open)) 
             using (var reader = new StreamReader(stream)) {
                 var source = reader.ReadToEnd();
-                shaderId = GL.CreateShader(ShaderType.VertexShader);
+                shaderId = GL.CreateShader(ShaderType);
                 GL.ShaderSource(shaderId, source);
                 GL.CompileShader(shaderId);
 
