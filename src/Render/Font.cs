@@ -46,6 +46,14 @@ namespace LE {
             return atlasWithNewColor;
         }
 
+        public Bitmap getTextBitmap(String text) {
+            Bitmap[] letters = new Bitmap[text.Length];
+            for (int i = 0; i < text.Length; i++) {
+                letters[i] = this.Atlas[text[i]];
+            }
+            return letters[0];
+        }
+
         Bitmap getLetterBitmap(char letter, uint size) {
             this.face.SetCharSize(0, (float)size, 0, 96);
             uint glyphIndex = this.face.GetCharIndex(letter);
