@@ -7,16 +7,18 @@ using Drawing = ImageProcessorCore;
 
 namespace LE {
     public class Texture {
+
         public readonly int Id;
         public readonly uint Width;
         public readonly uint Height;
+        
         public Texture(String Filename) {
             if (String.IsNullOrEmpty(Filename)) {
                 throw new ArgumentException(Filename);
             }
 
             Drawing.Image image;
-            if(!File.Exists(Filename)) {
+            if (!File.Exists(Filename)) {
                 this.Id = -1;
                 return;
             };
@@ -65,7 +67,7 @@ namespace LE {
 
         byte[] getBGRFromImage(Drawing.Image Image) {
             byte[] pixels = new byte[Image.Height * Image.Width * 4];
-            for(uint i = 0, j = 0; i < Image.Pixels.Length; i++, j += 4) {
+            for (uint i = 0, j = 0; i < Image.Pixels.Length; i++, j += 4) {
                 uint blue = j;
                 uint green = j + 1;
                 uint red = j + 2;
@@ -77,6 +79,5 @@ namespace LE {
             }
             return pixels;
         }
-
     }
 }

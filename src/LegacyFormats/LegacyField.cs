@@ -1,5 +1,6 @@
 namespace LE {
     public struct LegacyField {
+
         public string name;
         public uint offset;
         public uint size;
@@ -10,5 +11,4 @@ namespace LE {
             this.size = size;
         }
     }
-    
 }

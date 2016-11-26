@@ -4,7 +4,6 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace LE {
-
     public class Graphics {
 
         ShaderProgram areaShader;
@@ -85,6 +84,5 @@ namespace LE {
                 GL.EnableVertexAttribArray(1);
             GL.BindVertexArray(0);
         }
-
     }
 }

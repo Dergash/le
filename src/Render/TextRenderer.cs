@@ -2,7 +2,6 @@ using System;
 using OpenTK;
 
 namespace LE {
-
     public class TextRenderer {
 
         Font font;
@@ -26,6 +25,5 @@ namespace LE {
             var letter = this.font.Atlas['B'];
             return new Texture(letter);
         }
-
     }
 }

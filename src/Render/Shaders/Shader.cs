@@ -3,7 +3,6 @@ using System.IO;
 using OpenTK.Graphics.OpenGL;
 
 namespace LE {
-    
     public class Shader : IDisposable {
 
         private int id;

@@ -1,13 +1,12 @@
 using System;
 using System.IO;
 using NUnit.Framework;
-
 using LE;
 
 namespace LETest {
-
     [TestFixture]
     public class CreatureImportTest {
+
         const String sampleMale = @"tests/samples/DRIZZT.cre";
         const String sampleFemale = @"tests/samples/VICONI.cre";
         const String fallenRanger = @"tests/samples/FALLEN_DRIZZT.cre";

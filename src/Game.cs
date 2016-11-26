@@ -7,16 +7,19 @@ using OpenTK.Graphics.OpenGL;
 
 namespace LE {
     public class Game : GameWindow {
+
         GameContext context;
         Graphics graphics;
         Area area;
         Vector3 cameraPosition;
         Vector3 cameraTarget;
         Vector3 cameraDirection;
+
         public Game(GameContext context) {
             base.Title = "Princess colour";
             this.context = context;
         }
+
         protected override void OnLoad(EventArgs e) {
             this.cameraPosition = new Vector3(0.0f, 0.0f, 3.0f);
             this.cameraTarget = new Vector3(0.0f, 0.0f, 0.0f);
@@ -28,6 +31,7 @@ namespace LE {
             GL.Enable(EnableCap.Texture2D);
             this.graphics = new Graphics();
         }
+
         protected override void OnRenderFrame(FrameEventArgs e) {
             this.graphics.ClearBackground();
             if (this.area != null) {
@@ -36,6 +40,7 @@ namespace LE {
             this.graphics.DrawTextLine("b", 0, 0);
             this.SwapBuffers();
         }
+
         protected override void OnKeyDown(KeyboardKeyEventArgs e) {
             if (e.Key == Key.Escape) {
                 this.Exit();
@@ -46,6 +51,7 @@ namespace LE {
                     : WindowState.Fullscreen;
             }
         }
+
         protected override void OnKeyUp(KeyboardKeyEventArgs e) {
 
         }

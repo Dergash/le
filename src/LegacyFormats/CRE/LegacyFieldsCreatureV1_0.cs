@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace LE {
     public class LegacyFields {
+
         public static readonly String CreatureSignature = "CRE ";
         public static readonly List<LegacyField> CreatureV1_0 = new List<LegacyField> {
             new LegacyField(0x0000, 4, "Signature"), 

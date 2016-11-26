@@ -1,13 +1,13 @@
 using System;
 
-using OpenTK;
 using SharpFont;
-using ImageProcessorCore;
 
 namespace LE {
     public class Font {
+
         Face face;
         private OpenTK.Color color;
+
         public OpenTK.Color Color {
             get {
                 return color;
@@ -16,12 +16,15 @@ namespace LE {
                 this.Atlas = changeAtlasColor(this.Atlas, value);
             }
         }
+
         public Bitmap[] Atlas;
+
         public Font(String pathToFont) {
             this.color = new OpenTK.Color(255, 255, 255, 255);
             Library library = new Library();
             this.face = new Face(library, pathToFont);
         }
+
         Face getFace() {
             return this.face;
         }

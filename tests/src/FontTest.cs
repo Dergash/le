@@ -1,15 +1,13 @@
 using System;
 using System.IO;
 using NUnit.Framework;
-using OpenTK;
-using OpenTK.Graphics.OpenGL;
 
 using LE;
 
 namespace LETest {
-
     [TestFixture]
     public class FontTest {
+        
         const String pathToFreetype = "freetype6.dll";
         const String pathToFont = "assets/fonts/Now-Regular.otf";
 
@@ -35,8 +33,5 @@ namespace LETest {
             font.initAtlas(48);
             Assert.That(font != null && font.Atlas.Length == 255);
         }
-
-        
-
     }
 }

@@ -5,7 +5,9 @@ namespace LE {
         Monochrome,
         BGRA
     }
+
     public struct Bitmap {
+
         public BitmapFormat Format;
         public uint Width;
         public uint Height;

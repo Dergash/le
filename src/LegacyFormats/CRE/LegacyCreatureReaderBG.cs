@@ -1,4 +1,4 @@
-using System; 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace LE {
         }
 
         public override Creature readFromLegacy(byte[] binary) {
-            if(!base.isSignatureValid(binary)) {
+            if (!base.isSignatureValid(binary)) {
                 throw new FormatException();
             }
             var creature = new Creature();
@@ -33,7 +33,7 @@ namespace LE {
 
         public Race getRace(byte[] binary) {
             uint offset = this.fields.First(field => field.name == "Race").offset;
-            if(binary != null && offset <= binary.Length) {
+            if (binary != null && offset <= binary.Length) {
                 switch ((LegacyRace)binary[offset]) {
                     case LegacyRace.HUMAN: return Race.Human;
                     case LegacyRace.ELF: return Race.Elf;
@@ -50,7 +50,7 @@ namespace LE {
         public List<Class> getClass(byte[] binary) {
             var result = new List<Class>();
             uint offset = this.fields.First(field => field.name == "Class").offset;
-            if(binary != null && offset <= binary.Length) {
+            if (binary != null && offset <= binary.Length) {
                 switch ((LegacyClass)binary[offset]) {
                     case LegacyClass.FIGHTER:
                         result.Add(Class.Fighter);
@@ -140,7 +140,7 @@ namespace LE {
 
         public Kit getKit(byte[] binary) {
             uint offset = this.fields.First(field => field.name == "Kit").offset;
-            if(binary != null && offset <= binary.Length) {
+            if (binary != null && offset <= binary.Length) {
                 switch ((LegacyKit)BitConverter.ToInt32(binary, (int)offset)) {
                     case LegacyKit.ABJURER: return Kit.Abjurer;
                     case LegacyKit.CONJURER: return Kit.Conjurer;

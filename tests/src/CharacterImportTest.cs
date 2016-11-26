@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-
 using LE;
 
 namespace LETest {
-
     [TestFixture]
     public class CharacterImportTest {
+
         const string sampleBronn = @"tests/samples/BRONN.CHR";
         Creature Bronn = new Creature {
             Gender = Gender.MALE,
