@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace LE {
@@ -35,6 +37,8 @@ namespace LE {
 
             GL.DeleteShader(this.vertexShaderId);
             GL.DeleteShader(this.fragmentShaderId);
+            this.vertexShaderId = -1;
+            this.fragmentShaderId = -1;
         }
 
         public Shader(String vertexSource, String framgentSource) {
@@ -55,6 +59,17 @@ namespace LE {
 
         public void Use() {
             GL.UseProgram(this.Id);
+        }
+
+        public void SetMatrix(String name, Matrix4 matrix) {
+            GL.UseProgram(this.Id);
+            float[] matrixAsArray = { // I think conversion method is hiding somewhere...
+                matrix.M11, matrix.M12, matrix.M13, matrix.M14,
+                matrix.M21, matrix.M22, matrix.M23, matrix.M24,
+                matrix.M31, matrix.M32, matrix.M33, matrix.M34,
+                matrix.M41, matrix.M42, matrix.M43, matrix.M44,
+            };
+            GL.UniformMatrix4(GL.GetUniformLocation(this.Id, name), 1, false, matrixAsArray);
         }
 
         void checkShaderErrors(int shaderId) {

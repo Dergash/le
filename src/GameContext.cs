@@ -24,7 +24,7 @@ namespace LE {
             if (font == null) {
                 try {
                     this.font = new Font(pathToFont);
-                    this.font.initAtlas(48);
+                    this.font.initAtlas(16);
                 } catch (Exception e) {
                     GameContext.getInstance().logger.WriteException(e);
                     return null;

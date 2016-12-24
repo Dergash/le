@@ -15,29 +15,49 @@ namespace LE {
         Vector3 cameraTarget;
         Vector3 cameraDirection;
 
+        SpriteRenderer renderer;
+        TextRenderer textRenderer;
+
         public Game(GameContext context) {
             base.Title = "Princess colour";
             this.context = context;
         }
 
         protected override void OnLoad(EventArgs e) {
+            VSync = VSyncMode.On;
             this.cameraPosition = new Vector3(0.0f, 0.0f, 3.0f);
             this.cameraTarget = new Vector3(0.0f, 0.0f, 0.0f);
             this.cameraDirection = OpenTK.Vector3.Normalize(this.cameraPosition - this.cameraTarget);
             this.area = new Area();
+            this.graphics = new Graphics();
+            this.renderer = new SpriteRenderer(graphics.getAreaShader());
+            this.renderer.SetProjection(Width, Height);
+
+            Font font = GameContext.getInstance().getFont();
+            this.textRenderer = new TextRenderer(font, Color.White, this.renderer);
+
             GL.Viewport(0, 0, Width, Height);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             GL.Enable(EnableCap.Texture2D);
-            this.graphics = new Graphics();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            GL.Viewport(0, 0, Width, Height);
+            this.graphics.ClearBackground();
+            if (this.area != null) {
+                this.renderer.DrawSprite(this.area.Texture, 0, 0, this.area.Texture.Width, this.area.Texture.Height, 0.0f);
+            }
+            this.SwapBuffers();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e) {
             this.graphics.ClearBackground();
             if (this.area != null) {
-                this.graphics.DrawSprite(this.area.Texture, 0, 0, this.area.Texture.Width, this.area.Texture.Height);
+                this.renderer.DrawSprite(this.area.Texture, 0, 0, this.area.Texture.Width, this.area.Texture.Height, 0.0f);
             }
-            this.graphics.DrawTextLine("b", 0, 0);
+            renderFPS(1.0f / e.Time);
             this.SwapBuffers();
         }
 
@@ -54,6 +74,20 @@ namespace LE {
 
         protected override void OnKeyUp(KeyboardKeyEventArgs e) {
 
+        }
+
+        // TODO :: Change when text renderer ready
+        void renderFPS(double fps) {
+            String fpsText = fps.ToString();
+            this.textRenderer.DrawTextLine("F", 10, 10);
+            this.textRenderer.DrawTextLine("P", 30, 10);
+            this.textRenderer.DrawTextLine("S", 50, 10);
+            if (fpsText.Length > 0) {
+                this.textRenderer.DrawTextLine(fpsText[0].ToString(), 70, 10);
+            }
+            if (fpsText.Length > 1) {
+                this.textRenderer.DrawTextLine(fpsText[1].ToString(), 90, 10);
+            }
         }
     }
 }
