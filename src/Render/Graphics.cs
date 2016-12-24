@@ -6,7 +6,7 @@ using OpenTK.Graphics.OpenGL;
 namespace LE {
     public class Graphics {
 
-        ShaderProgram areaShader;
+        Shader areaShader;
         TextRenderer textRenderer;
 
         public Graphics() {
@@ -24,7 +24,7 @@ namespace LE {
         public void DrawSprite(Texture texture, int x, int y, uint width, uint height) {
             int vertexArrayId = GL.GenVertexArray();
             setupRectangleVAO(vertexArrayId);
-            GL.UseProgram(areaShader.Id);
+            areaShader.Use();
             GL.BindTexture(TextureTarget.Texture2D, texture.Id);
             GL.BindVertexArray(vertexArrayId);
                 GL.DrawElements(BeginMode.Triangles, 6, DrawElementsType.UnsignedInt, 0);
@@ -40,14 +40,12 @@ namespace LE {
             DrawSprite(textTexture, 0, 0, textTexture.Width, textTexture.Height);
         }
 
-        ShaderProgram getAreaShader() {
-            var vertexShader = new Shader(@"src/Render/Shaders/VertexShader.glsl", ShaderType.VertexShader);
-            var fragmentShader = new Shader(@"src/Render/Shaders/FragmentShader.glsl", ShaderType.FragmentShader);
-            var shaderProgram = new ShaderProgram();
-            shaderProgram.Shaders.Add(vertexShader);
-            shaderProgram.Shaders.Add(fragmentShader);
-            shaderProgram.Build();
-            return shaderProgram;
+        Shader getAreaShader() {
+            String vertexSource = @"src/Render/Shaders/VertexShader.glsl";
+            String fragmentSource = @"src/Render/Shaders/FragmentShader.glsl";
+            Shader shader = new Shader(vertexSource, fragmentSource);
+            shader.Compile();
+            return shader;
         }
 
         void setupRectangleVAO(int vertexArrayObjectId) {
