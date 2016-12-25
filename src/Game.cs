@@ -70,6 +70,9 @@ namespace LE {
                     ? WindowState.Normal
                     : WindowState.Fullscreen;
             }
+            if (e.Key == Key.F12) {
+                this.context.ShowFPS = !this.context.ShowFPS;
+            }
         }
 
         protected override void OnKeyUp(KeyboardKeyEventArgs e) {
@@ -78,6 +81,9 @@ namespace LE {
 
         // TODO :: Change when text renderer ready
         void renderFPS(double fps) {
+            if (!this.context.ShowFPS) {
+                return;
+            }
             String fpsText = fps.ToString();
             this.textRenderer.DrawTextLine("F", 10, 10);
             this.textRenderer.DrawTextLine("P", 30, 10);

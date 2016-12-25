@@ -4,6 +4,8 @@ namespace LE {
     public class GameContext {
 
         static GameContext context;
+        
+        public bool ShowFPS { get; set; }
         public ILogger logger;
 
         private GameContext() {
@@ -32,5 +34,6 @@ namespace LE {
             }
             return font;
         }
+
     }
 }
