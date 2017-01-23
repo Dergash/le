@@ -17,6 +17,7 @@ namespace LE {
 
         SpriteRenderer renderer;
         TextRenderer textRenderer;
+        Texture player;
 
         public Game(GameContext context) {
             base.Title = "Princess colour";
@@ -36,6 +37,7 @@ namespace LE {
             Font font = GameContext.getInstance().getFont();
             this.textRenderer = new TextRenderer(font, Color.White, this.renderer);
 
+            player = new Texture("assets/player.png");
             GL.Viewport(0, 0, Width, Height);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
@@ -57,6 +59,7 @@ namespace LE {
             if (this.area != null) {
                 this.renderer.DrawSprite(this.area.Texture, 0, 0, this.area.Texture.Width, this.area.Texture.Height, 0.0f);
             }
+            renderPlayer();
             renderFPS(1.0f / e.Time);
             this.SwapBuffers();
         }
@@ -77,6 +80,10 @@ namespace LE {
 
         protected override void OnKeyUp(KeyboardKeyEventArgs e) {
 
+        }
+
+        void renderPlayer() {
+            renderer.DrawSprite(player, 100, 100, player.Width, player.Height, 0);
         }
 
         // TODO :: Change when text renderer ready

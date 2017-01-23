@@ -11,6 +11,8 @@ namespace LE {
         public readonly int Id;
         public readonly uint Width;
         public readonly uint Height;
+
+        string mockImage = @"assets\missing.png";
         
         public Texture(String Filename) {
             if (String.IsNullOrEmpty(Filename)) {
@@ -19,8 +21,7 @@ namespace LE {
 
             Drawing.Image image;
             if (!File.Exists(Filename)) {
-                this.Id = -1;
-                return;
+                Filename = mockImage;
             };
             
             using(FileStream stream = File.OpenRead(Filename)) {
