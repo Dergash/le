@@ -15,18 +15,21 @@ using NUnitLite;
 namespace LE {
     public class Program {
 
+        Config Config { get; set; }
         const String pathToFont = "assets/fonts/Now-Regular.otf";
 
         public static void Main(string[] args) {
             if (args.Contains("-debug")) {
                 runTests();
             }
+            
+            Config.Build();
             using(Game game = new Game(GameContext.getInstance())) {
                 game.Run(30.0);
             }
         }
 
-        private static void runTests() {
+        static void runTests() {
             var writer = new ExtendedTextWrapper(Console.Out);
             new AutoRun(typeof(Program).GetTypeInfo().Assembly).Execute(new String[] {}, writer, Console.In);
         }

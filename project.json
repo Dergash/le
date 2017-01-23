@@ -10,7 +10,9 @@
     "SharpFont.NETCore": "4.0.1",
     "NUnit": "3.5.0",
     "NUnitLite": "3.5.0",
-    "dotnet-test-nunit": "3.4.0-beta-2"
+    "dotnet-test-nunit": "3.4.0-beta-2",
+    "Microsoft.Extensions.Configuration": "1.1.0",
+    "Microsoft.Extensions.Configuration.Ini": "1.1.0"
   },
   "testRunner": "nunit",
   "frameworks": {
