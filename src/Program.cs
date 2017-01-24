@@ -19,11 +19,12 @@ namespace LE {
         const String pathToFont = "assets/fonts/Now-Regular.otf";
 
         public static void Main(string[] args) {
+            Config.Build();
+
             if (args.Contains("-debug")) {
                 runTests();
             }
             
-            Config.Build();
             using(Game game = new Game(GameContext.getInstance())) {
                 game.Run(30.0);
             }

@@ -5,7 +5,7 @@ namespace LE {
     public class LegacyCharacter {
         
         const string signature = "CHR ";
-        const uint offsetWithCREOffset = 0x0028;
+        const uint offsetWithCREOffset = 0x0028; // TODO : Rename
         const uint lengthOfCREStructure = 0x002c;
         byte[] binary;
 
