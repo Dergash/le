@@ -1,7 +1,7 @@
 using System;
 
 namespace LE {
-    class LegacyKey {
+    public class LegacyKey {
 
         public Int32 BifEntriesCount;
 

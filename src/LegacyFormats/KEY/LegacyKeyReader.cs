@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 
 namespace LE {
-    class LegacyKeyReader {
+    public class LegacyKeyReader {
 
         public LegacyKey Read(byte[] binary) {
             int bifEntriesCount = 0; 
