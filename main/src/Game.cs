@@ -37,7 +37,7 @@ namespace LE {
             Font font = GameContext.getInstance().getFont();
             this.textRenderer = new TextRenderer(font, Color.White, this.renderer);
 
-            player = new Texture("assets/player.png");
+            player = new Texture(@"assets\player.png");
             GL.Viewport(0, 0, Width, Height);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);

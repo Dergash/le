@@ -1,16 +1,15 @@
 using System;
 using System.IO;
-//using NUnit.Framework;
+using Xunit;
 using LE;
 
 namespace LETest {
-   // [TestFixture]
     public class CreatureImportTest {
 
-        const String sampleMale = @"tests/samples/DRIZZT.cre";
-        const String sampleFemale = @"tests/samples/VICONI.cre";
-        const String fallenRanger = @"tests/samples/FALLEN_DRIZZT.cre";
-        const String necromancer = @"tests/samples/XZAR.cre";
+        const String sampleMale = @"samples/DRIZZT.cre";
+        const String sampleFemale = @"samples/VICONI.cre";
+        const String fallenRanger = @"samples/FALLEN_DRIZZT.cre";
+        const String necromancer = @"samples/XZAR.cre";
         Creature IdealDrizzt = new Creature {
             Name = "Drizzt Do'Urden",
             ShortName = "Drizzt",
@@ -23,65 +22,65 @@ namespace LETest {
             Charisma = 14
         };
 
-        //[Test]
+        [Fact]
         public void testAlignmentReading() {
             var goodBinary = File.ReadAllBytes(sampleMale);
             var evilBinary = File.ReadAllBytes(sampleFemale);
             var creatureFactory = new CreatureFactory();
             Creature Drizzt = creatureFactory.importFromLegacy(goodBinary);
             Creature Viconia = creatureFactory.importFromLegacy(evilBinary);
-            //Assert.That(Drizzt.Alignment == Alignment.ChaoticGood && Viconia.Alignment == Alignment.NeutralEvil);
+            Assert.True(Drizzt.Alignment == Alignment.ChaoticGood && Viconia.Alignment == Alignment.NeutralEvil);
         }
 
-        // [Test]
+        [Fact]
         public void testGenderReading() {
             var maleBinary = File.ReadAllBytes(sampleMale);
             var femaleBinary = File.ReadAllBytes(sampleFemale);
             var creatureFactory = new CreatureFactory();
             Creature Drizzt = creatureFactory.importFromLegacy(maleBinary);
             Creature Viconia = creatureFactory.importFromLegacy(femaleBinary);
-           // Assert.That((Drizzt.Gender == Gender.MALE && Viconia.Gender == Gender.FEMALE));
+            Assert.True((Drizzt.Gender == Gender.MALE && Viconia.Gender == Gender.FEMALE));
         }
 
-        // [Test]
+        [Fact]
         public void testAbilitiesReading() {
             var maleBinary = File.ReadAllBytes(sampleMale);
             var creatureFactory = new CreatureFactory();
             Creature Drizzt = creatureFactory.importFromLegacy(maleBinary);
-          /*  Assert.That(Drizzt.Strength == IdealDrizzt.Strength
+            Assert.True(Drizzt.Strength == IdealDrizzt.Strength
                 && Drizzt.Dexterity == IdealDrizzt.Dexterity
                 && Drizzt.Constitution == IdealDrizzt.Constitution
                 && Drizzt.Intelligence == IdealDrizzt.Intelligence
                 && Drizzt.Wisdom == IdealDrizzt.Wisdom
-                && Drizzt.Charisma == IdealDrizzt.Charisma);*/
+                && Drizzt.Charisma == IdealDrizzt.Charisma);
         }
 
-        // [Test]
+        [Fact]
         public void testFallenReading() {
             var sample = File.ReadAllBytes(fallenRanger);
             var creatureFactory = new CreatureFactory();
             Creature Drizzt = creatureFactory.importFromLegacy(sample);
-            // Assert.IsTrue(Drizzt.Fallen);
+            Assert.True(Drizzt.Fallen);
         }
 
 
-        // [Test]
+        [Fact]
         public void testRaceReading() {
             var sampleCre = File.ReadAllBytes(sampleMale);
             var creatureFactory = new CreatureFactory();
             Creature Drizzt = creatureFactory.importFromLegacy(sampleCre);
-            // Assert.AreEqual(Drizzt.Race, Race.Elf);
+            Assert.Equal(Drizzt.Race, Race.Elf);
         }
 
-        // [Test]
+        [Fact]
         public void testClassReading() {
             var sampleCre = File.ReadAllBytes(necromancer);
             var creatureFactory = new CreatureFactory();
             Creature Xzar = creatureFactory.importFromLegacy(sampleCre);
-           /* Assert.That(Xzar.Class != null
+            Assert.True(Xzar.Class != null
                 && Xzar.Class.Count == 1
                 && Xzar.Class[0] == Class.Mage
-                && Xzar.Kit == Kit.Necromancer); */
+                && Xzar.Kit == Kit.Necromancer);
         }
     }
 }

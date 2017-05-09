@@ -18,8 +18,8 @@ namespace LE {
 
 
         public Shader getAreaShader() {
-            String vertexSource = @"src/Render/Shaders/VertexShader.glsl";
-            String fragmentSource = @"src/Render/Shaders/FragmentShader.glsl";
+            String vertexSource = @"assets/shaders/VertexShader.glsl";
+            String fragmentSource = @"assets/shaders/FragmentShader.glsl";
             Shader shader = new Shader(vertexSource, fragmentSource);
             shader.Compile();
             return shader;

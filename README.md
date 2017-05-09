@@ -10,6 +10,6 @@ Currently we use:
 
 **Assets and binary dependencies**
 
-* freetype6.dll is required in a project root folder by SharpFont library (https://github.com/Robmaister/SharpFont.Dependencies/tree/master/freetype2)
+* freetype6.dll is required for SharpFont library ('main' and 'tests' folders should contain this file) (https://github.com/Robmaister/SharpFont.Dependencies/tree/master/freetype2)
 * SharpFont itself currently has no NuGet package for .NET Core 1.0, so we hosting a wrapped version at www.myget.org 
 * At the moment we not hosting any assets (i.e. fonts, area backgrounds etc) so they are required for launching demo

@@ -4,7 +4,7 @@ namespace LE {
         public Texture Texture;
 
         public Area() {
-            var texture = new Texture("assets/forest.png");
+            var texture = new Texture(@"assets\forest.png");
             if (texture.Id != -1) {
                 this.Texture = texture;
             }

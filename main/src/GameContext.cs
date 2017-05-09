@@ -19,7 +19,7 @@ namespace LE {
             return GameContext.context;
         }
 
-        const String pathToFont = "assets/fonts/Now-Regular.otf";
+        const String pathToFont = @"assets\fonts\Now-Regular.otf";
         Font font;
 
         public Font getFont() {

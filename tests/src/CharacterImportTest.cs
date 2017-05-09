@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-// using NUnit.Framework;
+using Xunit;
 using LE;
 
-namespace LETest {
-   // [TestFixture]
+namespace tests {
     public class CharacterImportTest {
 
-        const string sampleBronn = @"tests/samples/BRONN.CHR";
+        const string sampleBronn = @"samples/BRONN.CHR";
         Creature Bronn = new Creature {
             Gender = Gender.MALE,
             Race = Race.Human,
@@ -21,11 +20,12 @@ namespace LETest {
             Charisma = 13
         };
 
-       // [Test]
+        [Fact]
         public void testBG1CharacterImport() {
             LegacyCharacter bronn = new LegacyCharacter(sampleBronn);
             var bg1Bronn = bronn.getCreature();
-           /* Assert.That(bg1Bronn.Gender == Bronn.Gender
+            Assert.True(
+                bg1Bronn.Gender == Bronn.Gender
                 && bg1Bronn.Race == Bronn.Race
                 && (bg1Bronn.Class != null
                     && bg1Bronn.Class.Count == 1
@@ -36,7 +36,8 @@ namespace LETest {
                 && bg1Bronn.Constitution == Bronn.Constitution
                 && bg1Bronn.Intelligence == Bronn.Intelligence
                 && bg1Bronn.Wisdom == Bronn.Wisdom
-                && bg1Bronn.Charisma == Bronn.Charisma); */
+                && bg1Bronn.Charisma == Bronn.Charisma
+            );
         }
     }
 }

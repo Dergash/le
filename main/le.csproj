@@ -6,9 +6,10 @@
     <AssemblyName>le</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>le</PackageId>
-    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback> 
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +18,15 @@
     <PackageReference Include="SharpFont.NETCore" Version="4.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Ini" Version="1.1.1" />
+    <PackageReference Include="xunit" Version="2.3.0-beta2-build3683" />
+
+    <Content Include="assets\**" PackagePath="%(Identity)">
+        <Link>assets\%(RecursiveDir)%(Filename)%(Extension)</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\freetype6.dll" PackagePath="%(Identity)">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
